@@ -270,6 +270,7 @@ Resources:
       Path: '/'
       ManagedPolicyArns:
       - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      - 'arn:aws:iam::aws:policy/AmazonS3FullAccess'
       Policies:
       - PolicyName: codepipeline
         PolicyDocument:
@@ -284,15 +285,15 @@ Resources:
     Type: "AWS::Lambda::Function"
     Properties: 
       Code:
-        S3Bucket: 'codepipeline-codedeploy-example-lambda00'
-        S3Key: 'v2.zip'
+        S3Bucket: 'cf-templates-w0gvds07kiif-us-east-1'
+        S3Key: 'codepipeline-codedeploy-example.zip'
       FunctionName: 'codepipeline_http_test'
       Handler: 'index.handler'
       MemorySize: 128
       Role: !Sub '${LambdaIAMRole.Arn}'
-      Runtime: 'nodejs12.x'
+      Runtime: 'nodejs18.x'
       Timeout: 30
 Outputs:
   URL:
-    Description: 'The URL pointing to the static website.'
+    Description: 'The URL pointing to the static website.'  
     Value: !Sub 'http://${EC2Instance.PublicDnsName}'
